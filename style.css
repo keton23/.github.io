@@ -27,6 +27,19 @@ a.back-link {
   margin-top: 30px;
 }
 
+/* 下部ナビ */
+.bottom-nav {
+  margin-top: 30px;
+}
+
+.bottom-nav a {
+  margin: 10px 0;
+}
+
+.bottom-nav a.back-link {
+  margin-top: 10px;
+}
+
 /* ===== 路線注記 ===== */
 .route-note {
   font-size: 0.9em;
