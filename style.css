@@ -50,18 +50,8 @@ a.back-link {
 
 /* 中丸町循環マーク */
 .nakamaru {
-  display: inline-block;
-  background: #FF9800;
-  color: #fff;
-  font-size: 0.75em;
-  font-weight: bold;
-  width: 1.4em;
-  height: 1.4em;
-  line-height: 1.4em;
-  text-align: center;
-  border-radius: 50%;
-  vertical-align: middle;
-  margin: 0 1px;
+  border-bottom: 3px solid #FF9800;
+  padding-bottom: 2px;
 }
 
 /* ===== タブ ===== */
