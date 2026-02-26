@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>時刻表</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>🕐 時刻表</h2>
+
+  <!-- 曜日タブ -->
+  <div class="tab-container">
+    <button class="tab active" data-target="weekday">平日</button>
+    <button class="tab" data-target="saturday">土曜</button>
+    <button class="tab" data-target="holiday">日祝</button>
+  </div>
+
+  <!-- 平日 -->
+  <table class="timetable" id="weekday">
+    <thead>
+      <tr><th>時</th><th>分</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="hour">6</td><td>49</td></tr>
+      <tr><td class="hour">7</td><td>06 22 36 51</td></tr>
+      <tr><td class="hour">8</td><td>06 17 32 43 56</td></tr>
+      <tr><td class="hour">9</td><td>09 22 34 49</td></tr>
+      <tr><td class="hour">10</td><td>04 19 32 44 57</td></tr>
+      <tr><td class="hour">11</td><td>10 23 37 52</td></tr>
+      <tr><td class="hour">12</td><td>07 22 37 52</td></tr>
+      <tr><td class="hour">13</td><td>07 22 37 52</td></tr>
+      <tr><td class="hour">14</td><td>07 22 37 52</td></tr>
+      <tr><td class="hour">15</td><td>07 22 37 52</td></tr>
+      <tr><td class="hour">16</td><td>07 22 36 49</td></tr>
+      <tr><td class="hour">17</td><td>02 13 28 37 46 57</td></tr>
+      <tr><td class="hour">18</td><td>08 19 30 41 53</td></tr>
+      <tr><td class="hour">19</td><td>04 14 24 34 44 52</td></tr>
+      <tr><td class="hour">20</td><td>04 17 26 35 44 54</td></tr>
+      <tr><td class="hour">21</td><td>11 20</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 土曜 -->
+  <table class="timetable hidden" id="saturday">
+    <thead>
+      <tr><th>時</th><th>分</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="hour">7</td><td>04 19 36 51</td></tr>
+      <tr><td class="hour">8</td><td>06 21 34 46 58</td></tr>
+      <tr><td class="hour">9</td><td>10 22 34 47 59</td></tr>
+      <tr><td class="hour">10</td><td>10 21 33 43 55</td></tr>
+      <tr><td class="hour">11</td><td>06 17 27 39 50</td></tr>
+      <tr><td class="hour">12</td><td>01 11 23 34 45 55</td></tr>
+      <tr><td class="hour">13</td><td>07 16 27 38 49</td></tr>
+      <tr><td class="hour">14</td><td>00 11 22 32 44 54</td></tr>
+      <tr><td class="hour">15</td><td>05 16 28 39 50</td></tr>
+      <tr><td class="hour">16</td><td>01 12 23 34 45 56</td></tr>
+      <tr><td class="hour">17</td><td>07 18 29 40 51</td></tr>
+      <tr><td class="hour">18</td><td>02 13 23 34 45 57</td></tr>
+      <tr><td class="hour">19</td><td>06 17 28 40 52</td></tr>
+      <tr><td class="hour">20</td><td>04 16 26 36 47 59</td></tr>
+      <tr><td class="hour">21</td><td></td></tr>
+    </tbody>
+  </table>
+
+  <!-- 日祝 -->
+  <table class="timetable hidden" id="holiday">
+    <thead>
+      <tr><th>時</th><th>分</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="hour">7</td><td>00 16 30 45</td></tr>
+      <tr><td class="hour">8</td><td>00 15 28 44 59</td></tr>
+      <tr><td class="hour">9</td><td>11 22 33 44 55</td></tr>
+      <tr><td class="hour">10</td><td>08 19 30 41 52</td></tr>
+      <tr><td class="hour">11</td><td>03 14 25 36 47 58</td></tr>
+      <tr><td class="hour">12</td><td>09 20 31 42 53</td></tr>
+      <tr><td class="hour">13</td><td>04 15 26 37 48 59</td></tr>
+      <tr><td class="hour">14</td><td>10 21 32 43 54</td></tr>
+      <tr><td class="hour">15</td><td>05 16 27 38 49</td></tr>
+      <tr><td class="hour">16</td><td>00 11 21 32 43 54</td></tr>
+      <tr><td class="hour">17</td><td>05 15 26 37 48 57</td></tr>
+      <tr><td class="hour">18</td><td>00 09 20 31 42 53</td></tr>
+      <tr><td class="hour">19</td><td>04 15 26 36 47 57</td></tr>
+      <tr><td class="hour">20</td><td>07 19 32 45 54</td></tr>
+      <tr><td class="hour">21</td><td></td></tr>
+    </tbody>
+  </table>
+
+  <a href="index.html" class="back-link">← メニューに戻る</a>
+
+  <script>
+    // タブ切り替え
+    document.querySelectorAll('.tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        // タブのアクティブ切り替え
+        document.querySelectorAll('.tab').forEach(function(t) {
+          t.classList.remove('active');
+        });
+        this.classList.add('active');
+
+        // テーブルの表示切り替え
+        document.querySelectorAll('.timetable').forEach(function(table) {
+          table.classList.add('hidden');
+        });
+        document.getElementById(this.dataset.target).classList.remove('hidden');
+      });
+    });
+
+    // 今日の曜日に合わせて自動でタブを選択
+    var day = new Date().getDay();
+    var targetTab;
+    if (day === 0) {
+      targetTab = 'holiday';  // 日曜
+    } else if (day === 6) {
+      targetTab = 'saturday'; // 土曜
+    } else {
+      targetTab = 'weekday';  // 平日
+    }
+    document.querySelector('.tab[data-target="' + targetTab + '"]').click();
+  </script>
+</body>
+</html>
