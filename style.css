@@ -27,6 +27,30 @@ a.back-link {
   margin-top: 30px;
 }
 
+/* ===== 路線注記 ===== */
+.route-note {
+  font-size: 0.9em;
+  color: #555;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+/* 中丸町循環マーク */
+.nakamaru {
+  display: inline-block;
+  background: #FF9800;
+  color: #fff;
+  font-size: 0.75em;
+  font-weight: bold;
+  width: 1.4em;
+  height: 1.4em;
+  line-height: 1.4em;
+  text-align: center;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin: 0 1px;
+}
+
 /* ===== タブ ===== */
 .tab-container {
   display: flex;
@@ -78,7 +102,6 @@ a.back-link {
 .timetable td {
   padding: 10px 14px;
   border-bottom: 1px solid #e0e0e0;
-  letter-spacing: 0.1em;
 }
 
 .timetable td.hour {
@@ -87,6 +110,11 @@ a.back-link {
   font-weight: bold;
   background: #f0f0f0;
   font-size: 1.1em;
+}
+
+.timetable td:not(.hour) {
+  letter-spacing: 0.15em;
+  word-spacing: 0.3em;
 }
 
 /* 非表示 */
