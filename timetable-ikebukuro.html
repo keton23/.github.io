@@ -344,6 +344,23 @@
       var cutoff = nowMin - 20;
       var filtered = all.filter(function(d) { return timeToMin(d.arr) >= cutoff; });
 
+      // 現在時刻 +1時間以内に該当便がなければ全てタブを非表示
+      var upperLimit = nowMin + 60;
+      var hasUpcoming = filtered.some(function(d) { return timeToMin(d.arr) <= upperLimit; });
+      var allTab = document.querySelector('.noriba-tabs .tab[data-target="all"]');
+      var allPanel = document.getElementById('all');
+      if (!hasUpcoming) {
+        allTab.style.display = 'none';
+        allPanel.classList.add('hidden');
+        // 全てタブがアクティブだった場合、1番タブに切り替え
+        if (allTab.classList.contains('active')) {
+          allTab.classList.remove('active');
+          switchToTab('noriba1', false);
+        }
+      } else {
+        allTab.style.display = '';
+      }
+
       var tbody = document.getElementById('all-body');
       var html = '';
       filtered.forEach(function(d) {
@@ -359,11 +376,6 @@
       tbody.innerHTML = html;
     }
 
-    renderAll();
-    renderSingle(noriba1, 'noriba1-body');
-    renderSingle(noriba5, 'noriba5-body');
-    renderSingle(noriba6, 'noriba6-body');
-
     // ================================================================
     // 直近の便までスクロール
     // ================================================================
@@ -376,12 +388,6 @@
         }
       }
     }
-
-    // 初回スクロール
-    setTimeout(function() {
-      var visible = document.querySelector('.arrival-list:not(.hidden) .arrival-table');
-      if (visible) scrollToNext(visible);
-    }, 100);
 
     // ================================================================
     // 地図の開閉
@@ -434,6 +440,20 @@
         switchToTab(this.dataset.target, false);
       });
     });
+
+    // ================================================================
+    // テーブル描画実行（switchToTab定義後に実行）
+    // ================================================================
+    renderSingle(noriba1, 'noriba1-body');
+    renderSingle(noriba5, 'noriba5-body');
+    renderSingle(noriba6, 'noriba6-body');
+    renderAll();
+
+    // 初回スクロール
+    setTimeout(function() {
+      var visible = document.querySelector('.arrival-list:not(.hidden) .arrival-table');
+      if (visible) scrollToNext(visible);
+    }, 100);
 
     // ================================================================
     // 「全て」タブの行タップ → のりば別タブ＋地図表示
