@@ -4,130 +4,450 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="format-detection" content="telephone=no">
-  <title>時刻表（池袋西口）</title>
+  <title>池袋西口 → 中丸町 到着時刻</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>🕐 時刻表（池袋西口）</h2>
+  <h2>池袋西口 → 中丸町 着</h2>
   <p class="route-note">
-    <span class="nakamaru">中</span> = 中丸町循環　無印 = 熊野町循環<br>
-    路線：池04 / 池02 / 池84 / 池82
+    のりば別に中丸町バス停への<b>到着時刻</b>をまとめています。<br>
+    2025年3月16日改正ダイヤ（平日）
   </p>
 
-  <!-- 曜日タブ -->
-  <div class="tab-container">
-    <button class="tab active" data-target="weekday">平日</button>
-    <button class="tab" data-target="saturday">土曜</button>
-    <button class="tab" data-target="holiday">日祝</button>
+  <!-- のりばタブ -->
+  <div class="tab-container noriba-tabs">
+    <button class="tab active" data-target="all">全て</button>
+    <button class="tab" data-target="noriba1">1番</button>
+    <button class="tab" data-target="noriba5">5番</button>
+    <button class="tab" data-target="noriba6">6番</button>
   </div>
 
-  <!-- 平日 -->
-  <table class="timetable" id="weekday">
-    <thead>
-      <tr><th>時</th><th>分</th></tr>
-    </thead>
-    <tbody>
-      <tr><td class="hour">6</td><td>45 57</td></tr>
-      <tr><td class="hour">7</td><td>13 27 42 57</td></tr>
-      <tr><td class="hour">8</td><td>12 27 42</td></tr>
-      <tr><td class="hour">9</td><td>00 15 30 45</td></tr>
-      <tr><td class="hour">10</td><td>00 16 30 <span class="nakamaru">31</span> 45</td></tr>
-      <tr><td class="hour">11</td><td>00 <span class="nakamaru">13</span> 15 30 45 <span class="nakamaru">51</span></td></tr>
-      <tr><td class="hour">12</td><td>00 15 30 <span class="nakamaru">31</span> 45</td></tr>
-      <tr><td class="hour">13</td><td>00 <span class="nakamaru">11</span> 15 30 45 <span class="nakamaru">51</span></td></tr>
-      <tr><td class="hour">14</td><td>00 15 30 45</td></tr>
-      <tr><td class="hour">15</td><td>00 15 30 45</td></tr>
-      <tr><td class="hour">16</td><td>00 14 28 42 56</td></tr>
-      <tr><td class="hour">17</td><td>10 25 38 52</td></tr>
-      <tr><td class="hour">18</td><td>06 20 34 48</td></tr>
-      <tr><td class="hour">19</td><td>02 17 30 44 58</td></tr>
-      <tr><td class="hour">20</td><td>12 33 54</td></tr>
-      <tr><td class="hour">21</td><td>18 36</td></tr>
-      <tr><td class="hour">22</td><td>00</td></tr>
-    </tbody>
-  </table>
+  <!-- ===== 全のりば統合（時系列順） ===== -->
+  <div id="all" class="arrival-list">
+    <table class="arrival-table">
+      <thead>
+        <tr>
+          <th>中丸町着</th>
+          <th>西口発</th>
+          <th>のりば</th>
+          <th>系統</th>
+        </tr>
+      </thead>
+      <tbody id="all-body">
+        <!-- JSで動的生成 -->
+      </tbody>
+    </table>
+  </div>
 
-  <!-- 土曜 -->
-  <table class="timetable hidden" id="saturday">
-    <thead>
-      <tr><th>時</th><th>分</th></tr>
-    </thead>
-    <tbody>
-      <tr><td class="hour">6</td><td>51</td></tr>
-      <tr><td class="hour">7</td><td>07 21 35 49</td></tr>
-      <tr><td class="hour">8</td><td>03 16 31 45 59</td></tr>
-      <tr><td class="hour">9</td><td>12 27 41 55</td></tr>
-      <tr><td class="hour">10</td><td>10 23 37 51</td></tr>
-      <tr><td class="hour">11</td><td>05 19 33 46</td></tr>
-      <tr><td class="hour">12</td><td>01 15 29 44 57</td></tr>
-      <tr><td class="hour">13</td><td>11 25 39 53</td></tr>
-      <tr><td class="hour">14</td><td>07 20 35 49</td></tr>
-      <tr><td class="hour">15</td><td>03 18 31 45 59</td></tr>
-      <tr><td class="hour">16</td><td>13 27 41 54</td></tr>
-      <tr><td class="hour">17</td><td>09 23 37 51</td></tr>
-      <tr><td class="hour">18</td><td>06 19 33 47</td></tr>
-      <tr><td class="hour">19</td><td>00 19 39 59</td></tr>
-      <tr><td class="hour">20</td><td>19 39 59</td></tr>
-      <tr><td class="hour">21</td><td>19 39</td></tr>
-      <tr><td class="hour">22</td><td>00</td></tr>
-    </tbody>
-  </table>
+  <!-- ===== 1番のりば ===== -->
+  <div id="noriba1" class="arrival-list hidden">
+    <div class="noriba-header noriba1-header">
+      <span class="noriba-badge n1">1番のりば</span>
+      <span class="noriba-detail">池02/04/82/84 循環系統（約6分）</span>
+    </div>
+    <div class="map-container">
+      <button class="map-toggle" onclick="toggleMap(this)" aria-expanded="false">&#x1F4CD; のりば地図を表示</button>
+      <div class="map-wrap" style="display:none">
+        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=139.70732%2C35.72983%2C139.71032%2C35.73283&amp;layer=mapnik&amp;marker=35.73133%2C139.70882" width="100%" height="250" frameborder="0" loading="lazy"></iframe>
+        <p class="map-caption">1番のりば: 西口ロータリー内（駅に一番近い側）<br><a href="https://www.google.com/maps/search/?api=1&query=35.73133,139.70882" target="_blank" rel="noopener">Google Mapsで開く</a></p>
+      </div>
+    </div>
+    <table class="arrival-table">
+      <thead>
+        <tr><th>中丸町着</th><th>西口発</th><th>系統・行先</th></tr>
+      </thead>
+      <tbody id="noriba1-body"></tbody>
+    </table>
+  </div>
 
-  <!-- 日祝 -->
-  <table class="timetable hidden" id="holiday">
-    <thead>
-      <tr><th>時</th><th>分</th></tr>
-    </thead>
-    <tbody>
-      <tr><td class="hour">6</td><td>51</td></tr>
-      <tr><td class="hour">7</td><td>07 21 35 49</td></tr>
-      <tr><td class="hour">8</td><td>03 16 31 45 59</td></tr>
-      <tr><td class="hour">9</td><td>12 27 41 55</td></tr>
-      <tr><td class="hour">10</td><td>10 23 37 51</td></tr>
-      <tr><td class="hour">11</td><td>05 19 33 46</td></tr>
-      <tr><td class="hour">12</td><td>01 15 29 44 57</td></tr>
-      <tr><td class="hour">13</td><td>11 25 39 53</td></tr>
-      <tr><td class="hour">14</td><td>07 20 35 49</td></tr>
-      <tr><td class="hour">15</td><td>03 18 31 45 59</td></tr>
-      <tr><td class="hour">16</td><td>13 27 41 54</td></tr>
-      <tr><td class="hour">17</td><td>09 23 37 51</td></tr>
-      <tr><td class="hour">18</td><td>06 19 33 47</td></tr>
-      <tr><td class="hour">19</td><td>00 19 39 59</td></tr>
-      <tr><td class="hour">20</td><td>19 39 59</td></tr>
-      <tr><td class="hour">21</td><td>19 39</td></tr>
-      <tr><td class="hour">22</td><td>00</td></tr>
-    </tbody>
-  </table>
+  <!-- ===== 5番のりば ===== -->
+  <div id="noriba5" class="arrival-list hidden">
+    <div class="noriba-header noriba5-header">
+      <span class="noriba-badge n5">5番のりば</span>
+      <span class="noriba-detail">池20/20-3 高島平方面（約8分）</span>
+    </div>
+    <div class="map-container">
+      <button class="map-toggle" onclick="toggleMap(this)" aria-expanded="false">&#x1F4CD; のりば地図を表示</button>
+      <div class="map-wrap" style="display:none">
+        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=139.70750%2C35.72974%2C139.71050%2C35.73274&amp;layer=mapnik&amp;marker=35.73124%2C139.70901" width="100%" height="250" frameborder="0" loading="lazy"></iframe>
+        <p class="map-caption">5番のりば: ロータリー中ほど（1番のりばの先）<br><a href="https://www.google.com/maps/search/?api=1&query=35.73124,139.70901" target="_blank" rel="noopener">Google Mapsで開く</a></p>
+      </div>
+    </div>
+    <table class="arrival-table">
+      <thead>
+        <tr><th>中丸町着</th><th>西口発</th><th>系統・行先</th></tr>
+      </thead>
+      <tbody id="noriba5-body"></tbody>
+    </table>
+  </div>
+
+  <!-- ===== 6番のりば ===== -->
+  <div id="noriba6" class="arrival-list hidden">
+    <div class="noriba-header noriba6-header">
+      <span class="noriba-badge n6">6番のりば</span>
+      <span class="noriba-detail">池21 舟渡町経由高島平駅（約8分）</span>
+    </div>
+    <div class="map-container">
+      <button class="map-toggle" onclick="toggleMap(this)" aria-expanded="false">&#x1F4CD; のりば地図を表示</button>
+      <div class="map-wrap" style="display:none">
+        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=139.70770%2C35.72959%2C139.71070%2C35.73259&amp;layer=mapnik&amp;marker=35.73105%2C139.70895" width="100%" height="250" frameborder="0" loading="lazy"></iframe>
+        <p class="map-caption">6番のりば: ロータリー奥側（5番のりばの先）<br><a href="https://www.google.com/maps/search/?api=1&query=35.73105,139.70895" target="_blank" rel="noopener">Google Mapsで開く</a></p>
+      </div>
+    </div>
+    <table class="arrival-table">
+      <thead>
+        <tr><th>中丸町着</th><th>西口発</th><th>系統・行先</th></tr>
+      </thead>
+      <tbody id="noriba6-body"></tbody>
+    </table>
+  </div>
 
   <div class="bottom-nav">
-    <a href="timetable-nakamaru.html" class="timetable-link">🕐 時刻表（中丸町）</a>
+    <a href="timetable-nakamaru.html" class="timetable-link">時刻表（中丸町発 → 池袋方面）</a>
     <a href="index.html" class="back-link">← メニューに戻る</a>
   </div>
 
   <script>
-    document.querySelectorAll('.tab').forEach(function(tab) {
+    // ================================================================
+    // 時刻表データ（平日・2025年3月16日改正ダイヤ）
+    // 発車時刻 → 到着時刻は所要時間を加算して計算
+    // ================================================================
+
+    // --- 1番のりば: 池02/04/82/84（所要 約6分）---
+    // 既存の timetable-ikebukuro.html の発車時刻データをもとに構成
+    // 池04/84 = 中丸町循環系、池02/82 = 熊野町循環系
+    var noriba1 = [
+      // 6時台
+      { dep: '6:45', arr: '6:51', route: '池02', dest: '熊野町循環' },
+      { dep: '6:57', arr: '7:03', route: '池02', dest: '熊野町循環' },
+      // 7時台
+      { dep: '7:13', arr: '7:19', route: '池02', dest: '熊野町循環' },
+      { dep: '7:27', arr: '7:33', route: '池02', dest: '熊野町循環' },
+      { dep: '7:42', arr: '7:48', route: '池02', dest: '熊野町循環' },
+      { dep: '7:57', arr: '8:03', route: '池02', dest: '熊野町循環' },
+      // 8時台
+      { dep: '8:12', arr: '8:18', route: '池02', dest: '熊野町循環' },
+      { dep: '8:27', arr: '8:33', route: '池02', dest: '熊野町循環' },
+      { dep: '8:42', arr: '8:48', route: '池02', dest: '熊野町循環' },
+      // 9時台
+      { dep: '9:00', arr: '9:06', route: '池02', dest: '熊野町循環' },
+      { dep: '9:15', arr: '9:21', route: '池02', dest: '熊野町循環' },
+      { dep: '9:30', arr: '9:36', route: '池02', dest: '熊野町循環' },
+      { dep: '9:45', arr: '9:51', route: '池02', dest: '熊野町循環' },
+      // 10時台
+      { dep: '10:00', arr: '10:06', route: '池02', dest: '熊野町循環' },
+      { dep: '10:16', arr: '10:22', route: '池02', dest: '熊野町循環' },
+      { dep: '10:30', arr: '10:36', route: '池02', dest: '熊野町循環' },
+      { dep: '10:31', arr: '10:37', route: '池04', dest: '中丸町循環' },
+      { dep: '10:45', arr: '10:51', route: '池02', dest: '熊野町循環' },
+      // 11時台
+      { dep: '11:00', arr: '11:06', route: '池02', dest: '熊野町循環' },
+      { dep: '11:13', arr: '11:19', route: '池04', dest: '中丸町循環' },
+      { dep: '11:15', arr: '11:21', route: '池02', dest: '熊野町循環' },
+      { dep: '11:30', arr: '11:36', route: '池02', dest: '熊野町循環' },
+      { dep: '11:45', arr: '11:51', route: '池02', dest: '熊野町循環' },
+      { dep: '11:51', arr: '11:57', route: '池04', dest: '中丸町循環' },
+      // 12時台
+      { dep: '12:00', arr: '12:06', route: '池02', dest: '熊野町循環' },
+      { dep: '12:15', arr: '12:21', route: '池02', dest: '熊野町循環' },
+      { dep: '12:30', arr: '12:36', route: '池02', dest: '熊野町循環' },
+      { dep: '12:31', arr: '12:37', route: '池04', dest: '中丸町循環' },
+      { dep: '12:45', arr: '12:51', route: '池02', dest: '熊野町循環' },
+      // 13時台
+      { dep: '13:00', arr: '13:06', route: '池02', dest: '熊野町循環' },
+      { dep: '13:11', arr: '13:17', route: '池04', dest: '中丸町循環' },
+      { dep: '13:15', arr: '13:21', route: '池02', dest: '熊野町循環' },
+      { dep: '13:30', arr: '13:36', route: '池02', dest: '熊野町循環' },
+      { dep: '13:45', arr: '13:51', route: '池02', dest: '熊野町循環' },
+      { dep: '13:51', arr: '13:57', route: '池84', dest: '中丸町循環→車庫' },
+      // 14時台
+      { dep: '14:00', arr: '14:06', route: '池02', dest: '熊野町循環' },
+      { dep: '14:15', arr: '14:21', route: '池02', dest: '熊野町循環' },
+      { dep: '14:30', arr: '14:36', route: '池02', dest: '熊野町循環' },
+      { dep: '14:45', arr: '14:51', route: '池02', dest: '熊野町循環' },
+      // 15時台
+      { dep: '15:00', arr: '15:06', route: '池02', dest: '熊野町循環' },
+      { dep: '15:15', arr: '15:21', route: '池02', dest: '熊野町循環' },
+      { dep: '15:30', arr: '15:36', route: '池02', dest: '熊野町循環' },
+      { dep: '15:45', arr: '15:51', route: '池02', dest: '熊野町循環' },
+      // 16時台
+      { dep: '16:00', arr: '16:06', route: '池02', dest: '熊野町循環' },
+      { dep: '16:14', arr: '16:20', route: '池02', dest: '熊野町循環' },
+      { dep: '16:28', arr: '16:34', route: '池02', dest: '熊野町循環' },
+      { dep: '16:42', arr: '16:48', route: '池02', dest: '熊野町循環' },
+      { dep: '16:56', arr: '17:02', route: '池02', dest: '熊野町循環' },
+      // 17時台
+      { dep: '17:10', arr: '17:16', route: '池02', dest: '熊野町循環' },
+      { dep: '17:25', arr: '17:31', route: '池02', dest: '熊野町循環' },
+      { dep: '17:38', arr: '17:44', route: '池02', dest: '熊野町循環' },
+      { dep: '17:52', arr: '17:58', route: '池02', dest: '熊野町循環' },
+      // 18時台
+      { dep: '18:06', arr: '18:12', route: '池02', dest: '熊野町循環' },
+      { dep: '18:20', arr: '18:26', route: '池02', dest: '熊野町循環' },
+      { dep: '18:34', arr: '18:40', route: '池02', dest: '熊野町循環' },
+      { dep: '18:48', arr: '18:54', route: '池02', dest: '熊野町循環' },
+      // 19時台
+      { dep: '19:02', arr: '19:08', route: '池02', dest: '熊野町循環' },
+      { dep: '19:17', arr: '19:23', route: '池02', dest: '熊野町循環' },
+      { dep: '19:30', arr: '19:36', route: '池02', dest: '熊野町循環' },
+      { dep: '19:44', arr: '19:50', route: '池02', dest: '熊野町循環' },
+      { dep: '19:58', arr: '20:04', route: '池02', dest: '熊野町循環' },
+      // 20時台
+      { dep: '20:12', arr: '20:18', route: '池02', dest: '熊野町循環' },
+      { dep: '20:33', arr: '20:39', route: '池02', dest: '熊野町循環' },
+      { dep: '20:54', arr: '21:00', route: '池02', dest: '熊野町循環' },
+      // 21時台
+      { dep: '21:18', arr: '21:24', route: '池02', dest: '熊野町循環' },
+      { dep: '21:36', arr: '21:42', route: '池02', dest: '熊野町循環' },
+      // 22時台
+      { dep: '22:00', arr: '22:06', route: '池02', dest: '熊野町循環' }
+    ];
+
+    // --- 5番のりば: 池20/20-3（所要 約8分）---
+    // NAVITIMEの発着時刻データ
+    var noriba5 = [
+      { dep: '6:53', arr: '7:01', route: '池20', dest: '高島平操車場' },
+      { dep: '7:25', arr: '7:33', route: '池20', dest: '高島平操車場' },
+      { dep: '7:52', arr: '8:00', route: '池20', dest: '高島平操車場' },
+      { dep: '8:16', arr: '8:24', route: '池20', dest: '高島平操車場' },
+      { dep: '8:39', arr: '8:47', route: '池20', dest: '高島平操車場' },
+      { dep: '9:01', arr: '9:09', route: '池20', dest: '高島平操車場' },
+      { dep: '9:22', arr: '9:30', route: '池20', dest: '高島平操車場' },
+      { dep: '9:45', arr: '9:53', route: '池20', dest: '高島平操車場' },
+      { dep: '10:07', arr: '10:15', route: '池20', dest: '高島平操車場' },
+      { dep: '10:29', arr: '10:37', route: '池20', dest: '高島平操車場' },
+      { dep: '10:51', arr: '10:59', route: '池20', dest: '高島平操車場' },
+      { dep: '11:13', arr: '11:21', route: '池20', dest: '高島平操車場' },
+      { dep: '11:35', arr: '11:43', route: '池20', dest: '高島平操車場' },
+      { dep: '11:57', arr: '12:05', route: '池20', dest: '高島平操車場' },
+      { dep: '12:19', arr: '12:27', route: '池20', dest: '高島平操車場' },
+      { dep: '12:41', arr: '12:49', route: '池20', dest: '高島平操車場' },
+      { dep: '13:03', arr: '13:11', route: '池20', dest: '高島平操車場' },
+      { dep: '13:25', arr: '13:33', route: '池20', dest: '高島平操車場' },
+      { dep: '13:47', arr: '13:55', route: '池20', dest: '高島平操車場' },
+      { dep: '14:09', arr: '14:17', route: '池20', dest: '高島平操車場' },
+      { dep: '14:31', arr: '14:39', route: '池20', dest: '高島平操車場' },
+      { dep: '14:53', arr: '15:01', route: '池20', dest: '高島平操車場' },
+      { dep: '15:15', arr: '15:23', route: '池20', dest: '高島平操車場' },
+      { dep: '15:37', arr: '15:45', route: '池20', dest: '高島平操車場' },
+      { dep: '15:59', arr: '16:07', route: '池20', dest: '高島平操車場' },
+      { dep: '16:21', arr: '16:29', route: '池20', dest: '高島平操車場' },
+      { dep: '16:43', arr: '16:51', route: '池20', dest: '高島平操車場' },
+      { dep: '17:05', arr: '17:13', route: '池20', dest: '高島平操車場' },
+      { dep: '17:27', arr: '17:35', route: '池20', dest: '高島平操車場' },
+      { dep: '17:51', arr: '17:59', route: '池20', dest: '高島平操車場' },
+      { dep: '18:15', arr: '18:23', route: '池20', dest: '高島平操車場' },
+      { dep: '18:39', arr: '18:47', route: '池20', dest: '高島平操車場' },
+      { dep: '19:03', arr: '19:11', route: '池20', dest: '高島平操車場' },
+      { dep: '19:27', arr: '19:35', route: '池20', dest: '高島平操車場' },
+      { dep: '19:51', arr: '19:59', route: '池20', dest: '高島平操車場' },
+      { dep: '20:15', arr: '20:23', route: '池20-3', dest: '志村三丁目駅' },
+      { dep: '20:45', arr: '20:53', route: '池20', dest: '高島平操車場' },
+      { dep: '21:00', arr: '21:08', route: '池20-3', dest: '志村三丁目駅' },
+      { dep: '21:15', arr: '21:23', route: '池20-3', dest: '志村三丁目駅' }
+    ];
+
+    // --- 6番のりば: 池21（所要 約8分）---
+    // NAVITIMEの発着時刻データ
+    var noriba6 = [
+      { dep: '6:35', arr: '6:43', route: '池21', dest: '高島平駅' },
+      { dep: '7:10', arr: '7:18', route: '池21', dest: '高島平駅' },
+      { dep: '7:40', arr: '7:48', route: '池21', dest: '高島平駅' },
+      { dep: '8:04', arr: '8:12', route: '池21', dest: '高島平駅' },
+      { dep: '8:28', arr: '8:36', route: '池21', dest: '高島平駅' },
+      { dep: '8:50', arr: '8:58', route: '池21', dest: '高島平駅' },
+      { dep: '9:12', arr: '9:20', route: '池21', dest: '高島平駅' },
+      { dep: '9:34', arr: '9:42', route: '池21', dest: '高島平駅' },
+      { dep: '9:56', arr: '10:04', route: '池21', dest: '高島平駅' },
+      { dep: '10:18', arr: '10:26', route: '池21', dest: '高島平駅' },
+      { dep: '10:40', arr: '10:48', route: '池21', dest: '高島平駅' },
+      { dep: '11:02', arr: '11:10', route: '池21', dest: '高島平駅' },
+      { dep: '11:24', arr: '11:32', route: '池21', dest: '高島平駅' },
+      { dep: '11:46', arr: '11:54', route: '池21', dest: '高島平駅' },
+      { dep: '12:08', arr: '12:16', route: '池21', dest: '高島平駅' },
+      { dep: '12:30', arr: '12:38', route: '池21', dest: '高島平駅' },
+      { dep: '12:52', arr: '13:00', route: '池21', dest: '高島平駅' },
+      { dep: '13:14', arr: '13:22', route: '池21', dest: '高島平駅' },
+      { dep: '13:36', arr: '13:44', route: '池21', dest: '高島平駅' },
+      { dep: '13:58', arr: '14:06', route: '池21', dest: '高島平駅' },
+      { dep: '14:20', arr: '14:28', route: '池21', dest: '高島平駅' },
+      { dep: '14:42', arr: '14:50', route: '池21', dest: '高島平駅' },
+      { dep: '15:04', arr: '15:12', route: '池21', dest: '高島平駅' },
+      { dep: '15:26', arr: '15:34', route: '池21', dest: '高島平駅' },
+      { dep: '15:48', arr: '15:56', route: '池21', dest: '高島平駅' },
+      { dep: '16:10', arr: '16:18', route: '池21', dest: '高島平駅' },
+      { dep: '16:32', arr: '16:40', route: '池21', dest: '高島平駅' },
+      { dep: '16:54', arr: '17:02', route: '池21', dest: '高島平駅' },
+      { dep: '17:16', arr: '17:24', route: '池21', dest: '高島平駅' },
+      { dep: '17:39', arr: '17:47', route: '池21', dest: '高島平駅' },
+      { dep: '18:03', arr: '18:11', route: '池21', dest: '高島平駅' },
+      { dep: '18:27', arr: '18:35', route: '池21', dest: '高島平駅' },
+      { dep: '18:51', arr: '18:59', route: '池21', dest: '高島平駅' },
+      { dep: '19:15', arr: '19:23', route: '池21', dest: '高島平駅' },
+      { dep: '19:39', arr: '19:47', route: '池21', dest: '高島平駅' },
+      { dep: '20:03', arr: '20:11', route: '池21', dest: '高島平駅' },
+      { dep: '20:30', arr: '20:38', route: '池21', dest: '高島平駅' }
+    ];
+
+    // ================================================================
+    // ユーティリティ
+    // ================================================================
+    function timeToMin(t) {
+      var p = t.split(':');
+      return parseInt(p[0]) * 60 + parseInt(p[1]);
+    }
+
+    function noribaClass(n) {
+      return n === 1 ? 'n1' : n === 5 ? 'n5' : 'n6';
+    }
+
+    // 現在時刻（分）
+    var now = new Date();
+    var nowMin = now.getHours() * 60 + now.getMinutes();
+
+    // ================================================================
+    // テーブル描画
+    // ================================================================
+
+    // 個別のりば用テーブル描画
+    function renderSingle(data, tbodyId) {
+      var tbody = document.getElementById(tbodyId);
+      var html = '';
+      data.forEach(function(d) {
+        var arrMin = timeToMin(d.arr);
+        var cls = arrMin < nowMin ? 'past' : arrMin < nowMin + 20 ? 'soon' : '';
+        html += '<tr class="' + cls + '">'
+          + '<td class="arr-time">' + d.arr + '</td>'
+          + '<td>' + d.dep + '</td>'
+          + '<td><span class="route-tag">' + d.route + '</span> ' + d.dest + '</td>'
+          + '</tr>';
+      });
+      tbody.innerHTML = html;
+    }
+
+    // 全のりば統合テーブル描画（到着時刻順にソート）
+    function renderAll() {
+      var all = [];
+      noriba1.forEach(function(d) {
+        all.push({ dep: d.dep, arr: d.arr, route: d.route, dest: d.dest, noriba: 1 });
+      });
+      noriba5.forEach(function(d) {
+        all.push({ dep: d.dep, arr: d.arr, route: d.route, dest: d.dest, noriba: 5 });
+      });
+      noriba6.forEach(function(d) {
+        all.push({ dep: d.dep, arr: d.arr, route: d.route, dest: d.dest, noriba: 6 });
+      });
+      // 到着時刻でソート
+      all.sort(function(a, b) { return timeToMin(a.arr) - timeToMin(b.arr); });
+
+      var tbody = document.getElementById('all-body');
+      var html = '';
+      all.forEach(function(d) {
+        var arrMin = timeToMin(d.arr);
+        var cls = arrMin < nowMin ? 'past' : arrMin < nowMin + 20 ? 'soon' : '';
+        html += '<tr class="' + cls + ' noriba-row-' + d.noriba + ' all-row-clickable" data-noriba="' + d.noriba + '">'
+          + '<td class="arr-time">' + d.arr + '</td>'
+          + '<td>' + d.dep + '</td>'
+          + '<td><span class="noriba-badge-sm ' + noribaClass(d.noriba) + '">' + d.noriba + '</span></td>'
+          + '<td><span class="route-tag">' + d.route + '</span></td>'
+          + '</tr>';
+      });
+      tbody.innerHTML = html;
+    }
+
+    renderAll();
+    renderSingle(noriba1, 'noriba1-body');
+    renderSingle(noriba5, 'noriba5-body');
+    renderSingle(noriba6, 'noriba6-body');
+
+    // ================================================================
+    // 直近の便までスクロール
+    // ================================================================
+    function scrollToNext(tableEl) {
+      var rows = tableEl.querySelectorAll('tbody tr');
+      for (var i = 0; i < rows.length; i++) {
+        if (!rows[i].classList.contains('past')) {
+          rows[i].scrollIntoView({ block: 'center', behavior: 'smooth' });
+          return;
+        }
+      }
+    }
+
+    // 初回スクロール
+    setTimeout(function() {
+      var visible = document.querySelector('.arrival-list:not(.hidden) .arrival-table');
+      if (visible) scrollToNext(visible);
+    }, 100);
+
+    // ================================================================
+    // 地図の開閉
+    // ================================================================
+    function toggleMap(btn) {
+      var wrap = btn.nextElementSibling;
+      var isHidden = wrap.style.display === 'none';
+      wrap.style.display = isHidden ? 'block' : 'none';
+      btn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+      btn.textContent = isHidden ? '\u{1F4CD} のりば地図を閉じる' : '\u{1F4CD} のりば地図を表示';
+    }
+
+    // ================================================================
+    // タブ切り替え
+    // ================================================================
+    function switchToTab(targetId, showMap) {
+      document.querySelectorAll('.noriba-tabs .tab').forEach(function(t) {
+        t.classList.remove('active');
+      });
+      // 対応するタブボタンをアクティブに
+      var targetBtn = document.querySelector('.noriba-tabs .tab[data-target="' + targetId + '"]');
+      if (targetBtn) targetBtn.classList.add('active');
+
+      document.querySelectorAll('.arrival-list').forEach(function(list) {
+        list.classList.add('hidden');
+      });
+      document.getElementById(targetId).classList.remove('hidden');
+
+      // 地図を表示
+      if (showMap) {
+        var panel = document.getElementById(targetId);
+        var mapWrap = panel.querySelector('.map-wrap');
+        var mapBtn = panel.querySelector('.map-toggle');
+        if (mapWrap && mapBtn) {
+          mapWrap.style.display = 'block';
+          mapBtn.setAttribute('aria-expanded', 'true');
+          mapBtn.textContent = '\u{1F4CD} のりば地図を閉じる';
+        }
+      }
+
+      // タブ切り替え後、直近までスクロール
+      setTimeout(function() {
+        var visible = document.querySelector('.arrival-list:not(.hidden) .arrival-table');
+        if (visible) scrollToNext(visible);
+      }, 50);
+    }
+
+    document.querySelectorAll('.noriba-tabs .tab').forEach(function(tab) {
       tab.addEventListener('click', function() {
-        document.querySelectorAll('.tab').forEach(function(t) {
-          t.classList.remove('active');
-        });
-        this.classList.add('active');
-        document.querySelectorAll('.timetable').forEach(function(table) {
-          table.classList.add('hidden');
-        });
-        document.getElementById(this.dataset.target).classList.remove('hidden');
+        switchToTab(this.dataset.target, false);
       });
     });
 
-    var day = new Date().getDay();
-    var targetTab;
-    if (day === 0) {
-      targetTab = 'holiday';
-    } else if (day === 6) {
-      targetTab = 'saturday';
-    } else {
-      targetTab = 'weekday';
-    }
-    document.querySelector('.tab[data-target="' + targetTab + '"]').click();
+    // ================================================================
+    // 「全て」タブの行タップ → のりば別タブ＋地図表示
+    // ================================================================
+    document.getElementById('all-body').addEventListener('click', function(e) {
+      var row = e.target.closest('tr.all-row-clickable');
+      if (!row) return;
+      var noriba = row.getAttribute('data-noriba');
+      var targetId = 'noriba' + noriba;
+      switchToTab(targetId, true);
+      // ページ上部にスクロール（のりばヘッダーが見えるように）
+      var panel = document.getElementById(targetId);
+      if (panel) {
+        setTimeout(function() {
+          panel.scrollIntoView({ block: 'start', behavior: 'smooth' });
+        }, 80);
+      }
+    });
   </script>
 </body>
 </html>

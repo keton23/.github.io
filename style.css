@@ -124,3 +124,170 @@ a.back-link {
 .hidden {
   display: none;
 }
+
+/* ===== のりば別タブ ===== */
+.noriba-tabs .tab.active[data-target="all"] {
+  background: #333;
+  color: #fff;
+}
+.noriba-tabs .tab.active[data-target="noriba1"] {
+  background: #4CAF50;
+  color: #fff;
+}
+.noriba-tabs .tab.active[data-target="noriba5"] {
+  background: #2196F3;
+  color: #fff;
+}
+.noriba-tabs .tab.active[data-target="noriba6"] {
+  background: #FF9800;
+  color: #fff;
+}
+
+/* ===== のりばヘッダー ===== */
+.noriba-header {
+  padding: 12px 14px;
+  background: #eee;
+  border-bottom: 2px solid #ccc;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.noriba-detail {
+  font-size: 0.85em;
+  color: #666;
+}
+
+/* ===== のりばバッジ ===== */
+.noriba-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #fff;
+  font-size: 0.95em;
+}
+.noriba-badge-sm {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  border-radius: 50%;
+  font-weight: bold;
+  color: #fff;
+  font-size: 0.85em;
+}
+.n1 { background: #4CAF50; }
+.n5 { background: #2196F3; }
+.n6 { background: #FF9800; }
+
+/* ===== 到着時刻テーブル ===== */
+.arrival-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  font-size: 0.95em;
+}
+.arrival-table thead th {
+  padding: 8px 10px;
+  background: #333;
+  color: #fff;
+  text-align: center;
+  font-size: 0.9em;
+}
+.arrival-table td {
+  padding: 9px 10px;
+  border-bottom: 1px solid #e8e8e8;
+  text-align: center;
+}
+.arrival-table td.arr-time {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #1565C0;
+}
+
+/* 系統タグ */
+.route-tag {
+  display: inline-block;
+  background: #e0e0e0;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 過去の便（薄く表示） */
+.arrival-table tr.past {
+  opacity: 0.35;
+}
+
+/* まもなくの便（ハイライト） */
+.arrival-table tr.soon {
+  background: #FFF9C4;
+}
+.arrival-table tr.soon td.arr-time {
+  color: #E65100;
+}
+
+/* ===== のりば地図 ===== */
+.map-container {
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+}
+.map-toggle {
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  background: #f8f8f8;
+  color: #1565C0;
+  font-size: 0.95em;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+.map-toggle:active {
+  background: #e8e8e8;
+}
+.map-wrap {
+  padding: 0;
+}
+.map-wrap iframe {
+  display: block;
+  width: 100%;
+  height: 250px;
+  border: none;
+}
+.map-caption {
+  margin: 0;
+  padding: 8px 14px 12px;
+  font-size: 0.82em;
+  color: #555;
+  line-height: 1.5;
+  background: #fafafa;
+  border-top: 1px solid #eee;
+}
+.map-caption a {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  background: none;
+  color: #1565C0;
+  font-size: 1em;
+  border-radius: 0;
+  text-decoration: underline;
+}
+
+/* ===== 全てタブ 行クリック ===== */
+.all-row-clickable {
+  cursor: pointer;
+}
+.all-row-clickable:active {
+  background: #e3f2fd;
+}
+.all-row-clickable:not(.past):not(.soon):hover {
+  background: #f5f5f5;
+}
