@@ -291,3 +291,13 @@ a.back-link {
 .all-row-clickable:not(.past):not(.soon):hover {
   background: #f5f5f5;
 }
+
+/* ===== 運行なしメッセージ ===== */
+.no-bus-msg {
+  text-align: center;
+  padding: 40px 20px;
+  color: #888;
+  font-size: 1.05em;
+  background: #fff;
+  border-bottom: 1px solid #e8e8e8;
+}
