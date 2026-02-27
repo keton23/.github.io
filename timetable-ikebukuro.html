@@ -340,9 +340,13 @@
       // 到着時刻でソート
       all.sort(function(a, b) { return timeToMin(a.arr) - timeToMin(b.arr); });
 
+      // 現在時刻 - 20分 以降のみ表示
+      var cutoff = nowMin - 20;
+      var filtered = all.filter(function(d) { return timeToMin(d.arr) >= cutoff; });
+
       var tbody = document.getElementById('all-body');
       var html = '';
-      all.forEach(function(d) {
+      filtered.forEach(function(d) {
         var arrMin = timeToMin(d.arr);
         var cls = arrMin < nowMin ? 'past' : arrMin < nowMin + 20 ? 'soon' : '';
         html += '<tr class="' + cls + ' noriba-row-' + d.noriba + ' all-row-clickable" data-noriba="' + d.noriba + '">'
