@@ -13,6 +13,9 @@
     .day-tabs .tab.active[data-daytype="weekday"] { background: #4CAF50; color: #fff; }
     .day-tabs .tab.active[data-daytype="saturday"] { background: #2196F3; color: #fff; }
     .day-tabs .tab.active[data-daytype="holiday"] { background: #F44336; color: #fff; }
+    .full-toggle { display: flex; justify-content: flex-end; margin: 4px 0 8px; }
+    .full-toggle label { font-size: 0.85em; color: #555; display: flex; align-items: center; gap: 4px; cursor: pointer; }
+    .full-toggle input { cursor: pointer; }
   </style>
 </head>
 <body>
@@ -21,6 +24,11 @@
     のりば別に中丸町バス停への<b>到着時刻</b>をまとめています。<br>
     2025年3月16日改正ダイヤ
   </p>
+
+  <!-- 終日表示トグル -->
+  <div class="full-toggle">
+    <label><input type="checkbox" id="full-mode"> 終日表示</label>
+  </div>
 
   <!-- 曜日タブ -->
   <div class="tab-container day-tabs">
@@ -598,17 +606,24 @@
       return timetableData[dayType] || timetableData.weekday;
     }
 
+    var fullMode = false;
+
     function renderSingle(data, tbodyId, panelId) {
-      var cutoff = nowMin - 20;
-      var upperLimit = nowMin + 60;
-      var filtered = data.filter(function(d) { return timeToMin(d.arr) >= cutoff; });
-      var hasUpcoming = filtered.some(function(d) { return timeToMin(d.arr) <= upperLimit; });
+      var filtered;
+      if (fullMode) {
+        filtered = data;
+      } else {
+        var cutoff = nowMin - 20;
+        var upperLimit = nowMin + 60;
+        filtered = data.filter(function(d) { return timeToMin(d.arr) >= cutoff; });
+        var hasUpcoming = filtered.some(function(d) { return timeToMin(d.arr) <= upperLimit; });
+      }
 
       var panel = document.getElementById(panelId);
       var nobus = panel.querySelector('.no-bus-msg');
       var table = panel.querySelector('.arrival-table');
 
-      if (!hasUpcoming) {
+      if (!fullMode && !hasUpcoming) {
         if (table) table.style.display = 'none';
         if (!nobus) {
           nobus = document.createElement('p');
@@ -650,16 +665,20 @@
       });
       all.sort(function(a, b) { return timeToMin(a.arr) - timeToMin(b.arr); });
 
-      var cutoff = nowMin - 20;
-      var filtered = all.filter(function(d) { return timeToMin(d.arr) >= cutoff; });
-
-      var upperLimit = nowMin + 60;
-      var hasUpcoming = filtered.some(function(d) { return timeToMin(d.arr) <= upperLimit; });
+      var filtered;
+      if (fullMode) {
+        filtered = all;
+      } else {
+        var cutoff = nowMin - 20;
+        filtered = all.filter(function(d) { return timeToMin(d.arr) >= cutoff; });
+        var upperLimit = nowMin + 60;
+        var hasUpcoming = filtered.some(function(d) { return timeToMin(d.arr) <= upperLimit; });
+      }
       var allPanel = document.getElementById('all');
       var allTable = allPanel.querySelector('.arrival-table');
       var allNobus = allPanel.querySelector('.no-bus-msg');
 
-      if (!hasUpcoming) {
+      if (!fullMode && !hasUpcoming) {
         if (allTable) allTable.style.display = 'none';
         if (!allNobus) {
           allNobus = document.createElement('p');
@@ -783,6 +802,19 @@
     // 初期曜日タブをアクティブにする
     var initDayTab = document.querySelector('.day-tabs .tab[data-daytype="' + currentDayType + '"]');
     if (initDayTab) initDayTab.classList.add('active');
+
+    // ================================================================
+    // 終日表示トグル
+    // ================================================================
+    var fullCheckbox = document.getElementById('full-mode');
+    if (location.search.indexOf('full=1') !== -1) {
+      fullMode = true;
+      fullCheckbox.checked = true;
+    }
+    fullCheckbox.addEventListener('change', function() {
+      fullMode = this.checked;
+      renderAllTables();
+    });
 
     // ================================================================
     // 初回描画
