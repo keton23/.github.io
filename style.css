@@ -202,6 +202,11 @@ a.back-link {
   text-align: center;
 }
 .arrival-table td.arr-time {
+  font-size: 0.9em;
+  color: #888;
+}
+/* 発車時刻（強調） */
+.arrival-table td.dep-time {
   font-weight: bold;
   font-size: 1.1em;
   color: #1565C0;
@@ -227,7 +232,7 @@ a.back-link {
 .arrival-table tr.soon {
   background: #FFF9C4;
 }
-.arrival-table tr.soon td.arr-time {
+.arrival-table tr.soon td.dep-time {
   color: #E65100;
 }
 
