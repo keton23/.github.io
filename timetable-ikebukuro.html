@@ -42,8 +42,8 @@
     <table class="arrival-table">
       <thead>
         <tr>
-          <th>中丸町着</th>
           <th>西口発</th>
+          <th>中丸町着</th>
           <th>のりば</th>
           <th>系統</th>
         </tr>
@@ -69,7 +69,7 @@
     </div>
     <table class="arrival-table">
       <thead>
-        <tr><th>中丸町着</th><th>西口発</th><th>系統・行先</th></tr>
+        <tr><th>西口発</th><th>中丸町着</th><th>系統・行先</th></tr>
       </thead>
       <tbody id="noriba1-body"></tbody>
     </table>
@@ -90,7 +90,7 @@
     </div>
     <table class="arrival-table">
       <thead>
-        <tr><th>中丸町着</th><th>西口発</th><th>系統・行先</th></tr>
+        <tr><th>西口発</th><th>中丸町着</th><th>系統・行先</th></tr>
       </thead>
       <tbody id="noriba5-body"></tbody>
     </table>
@@ -111,7 +111,7 @@
     </div>
     <table class="arrival-table">
       <thead>
-        <tr><th>中丸町着</th><th>西口発</th><th>系統・行先</th></tr>
+        <tr><th>西口発</th><th>中丸町着</th><th>系統・行先</th></tr>
       </thead>
       <tbody id="noriba6-body"></tbody>
     </table>
@@ -628,8 +628,8 @@
         var arrMin = timeToMin(d.arr);
         var cls = arrMin < nowMin ? 'past' : arrMin < nowMin + 20 ? 'soon' : '';
         html += '<tr class="' + cls + '">'
+          + '<td class="dep-time">' + d.dep + '</td>'
           + '<td class="arr-time">' + d.arr + '</td>'
-          + '<td>' + d.dep + '</td>'
           + '<td><span class="route-tag">' + d.route + '</span> ' + d.dest + '</td>'
           + '</tr>';
       });
@@ -679,8 +679,8 @@
         var arrMin = timeToMin(d.arr);
         var cls = arrMin < nowMin ? 'past' : arrMin < nowMin + 20 ? 'soon' : '';
         html += '<tr class="' + cls + ' noriba-row-' + d.noriba + ' all-row-clickable" data-noriba="' + d.noriba + '">'
+          + '<td class="dep-time">' + d.dep + '</td>'
           + '<td class="arr-time">' + d.arr + '</td>'
-          + '<td>' + d.dep + '</td>'
           + '<td><span class="noriba-badge-sm ' + noribaClass(d.noriba) + '">' + d.noriba + '</span></td>'
           + '<td><span class="route-tag">' + d.route + '</span></td>'
           + '</tr>';
